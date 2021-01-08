@@ -1,0 +1,116 @@
+<% layout('/layouts/default.html', {title: '成绩管理管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+    <div class="box box-main">
+        <div class="box-header">
+            <div class="box-title">
+                <i class="fa icon-notebook"></i> ${text('成绩管理管理')}
+            </div>
+            <div class="box-tools pull-right">
+                <a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
+                <% if(hasPermi('score:score:edit')){ %>
+<!--                <a href="${ctx}/score/score/form" class="btn btn-default btnTool" title="${text('新增成绩管理')}"><i class="fa fa-plus"></i> ${text('新增')}</a>-->
+                <% } %>
+                <a href="#" class="btn btn-default" id="btnSetting" title="${text('设置')}"><i class="fa fa-navicon"></i></a>
+            </div>
+        </div>
+        <div class="box-body">
+            <#form:form id="searchForm" model="${score}" action="${ctx}/score/score/listData" method="post" class="form-inline hide"
+            data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+            <div class="form-group">
+                <label class="control-label">${text('学生学号')}：</label>
+                <div class="control-inline">
+                    <#form:input path="sno" maxlength="10" class="form-control width-120"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">${text('课程号')}：</label>
+                <div class="control-inline">
+                    <#form:input path="cno" maxlength="10" class="form-control width-120"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">${text('教师工号')}：</label>
+                <div class="control-inline">
+                    <#form:input path="tno" maxlength="10" class="form-control width-120"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">${text('学生姓名')}：</label>
+                <div class="control-inline">
+                    <#form:input path="sname" maxlength="45" class="form-control width-120"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">${text('课程名')}：</label>
+                <div class="control-inline">
+                    <#form:input path="cname" maxlength="45" class="form-control width-120"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">${text('教师姓名')}：</label>
+                <div class="control-inline">
+                    <#form:input path="tname" maxlength="45" class="form-control width-120"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">${text('考核方式')}：</label>
+                <div class="control-inline">
+                    <#form:input path="checkmethod" maxlength="45" class="form-control width-120"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">${text('是否合格')}：</label>
+                <div class="control-inline">
+                    <#form:input path="result0" maxlength="45" class="form-control width-120"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">${text('成绩')}：</label>
+                <div class="control-inline">
+                    <#form:input path="result1" class="form-control width-120"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+                <button type="reset" class="btn btn-default btn-sm">${text('重置')}</button>
+            </div>
+        </#form:form>
+        <table id="dataGrid"></table>
+        <div id="dataGridPage"></div>
+    </div>
+</div>
+</div>
+<% } %>
+<script>
+    // 初始化DataGrid对象
+    $('#dataGrid').dataGrid({
+        searchForm: $("#searchForm"),
+        columnModel: [
+            {header:'${text("学生学号")}', name:'sno', index:'a.sno', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+                    return '<a href="${ctx}/score/score/form?sno='+row.sno+'&cno='+row.cno+'&tno='+row.tno+'" class="btnList" data-title="${text("编辑成绩管理")}">'+(val||row.id)+'</a>';
+                }},
+            {header:'${text("课程号")}', name:'cno', index:'a.cno', width:150, align:"left"},
+            {header:'${text("教师工号")}', name:'tno', index:'a.tno', width:150, align:"left"},
+            {header:'${text("学生姓名")}', name:'sname', index:'a.sname', width:150, align:"left"},
+            {header:'${text("课程名")}', name:'cname', index:'a.cname', width:150, align:"left"},
+            {header:'${text("教师姓名")}', name:'tname', index:'a.tname', width:150, align:"left"},
+            {header:'${text("考核方式")}', name:'checkmethod', index:'a.checkmethod', width:150, align:"left"},
+            {header:'${text("是否合格")}', name:'result0', index:'a.result0', width:150, align:"left"},
+            {header:'${text("成绩")}', name:'result1', index:'a.result1', width:150, align:"right", formatter: function(val, obj, row, act){
+                    return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+                }},
+            // {header:'${text("操作")}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+            //         var actions = [];
+            //     <% if(hasPermi('score:score:edit')){ %>
+            //             actions.push('<a href="${ctx}/score/score/form?sno='+row.sno+'&cno='+row.cno+'&tno='+row.tno+'" class="btnList" title="${text("编辑成绩管理")}"><i class="fa fa-pencil"></i></a>&nbsp;');
+            //             actions.push('<a href="${ctx}/score/score/delete?sno='+row.sno+'&cno='+row.cno+'&tno='+row.tno+'" class="btnList" title="${text("删除成绩管理")}" data-confirm="${text("确认要删除该成绩管理吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+            //         <% } %>
+            //         return actions.join('');
+            //     }}
+        ],
+        // 加载成功后执行事件
+        ajaxSuccess: function(data){
+
+        }
+    });
+</script>

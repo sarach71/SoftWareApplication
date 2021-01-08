@@ -4,8 +4,6 @@
 package com.jeesite.modules.teacher_manage.entity;
 
 import org.hibernate.validator.constraints.Length;
-import java.util.List;
-import com.jeesite.common.collect.ListUtils;
 
 import com.jeesite.common.entity.DataEntity;
 import com.jeesite.common.mybatis.annotation.Column;
@@ -15,7 +13,7 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 /**
  * 教师信息管理Entity
  * @author wjx
- * @version 2021-01-07
+ * @version 2021-01-08
  */
 @Table(name="teacher", alias="a", columns={
 		@Column(name="tno", attrName="tno", label="教师工号", isPK=true),
@@ -29,7 +27,7 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 	}, orderBy="a.tno DESC"
 )
 public class Teacher extends DataEntity<Teacher> {
-
+	
 	private static final long serialVersionUID = 1L;
 	private String tno;		// 教师工号
 	private String tname;		// 姓名
@@ -39,8 +37,7 @@ public class Teacher extends DataEntity<Teacher> {
 	private String title;		// 职称
 	private String tphone;		// 联系方式
 	private String tpassword;		// 密码
-	private List<Course> courseList = ListUtils.newArrayList();		// 子表列表
-
+	
 	public Teacher() {
 		this(null);
 	}
@@ -48,7 +45,7 @@ public class Teacher extends DataEntity<Teacher> {
 	public Teacher(String id){
 		super(id);
 	}
-
+	
 	public String getTno() {
 		return tno;
 	}
@@ -56,7 +53,7 @@ public class Teacher extends DataEntity<Teacher> {
 	public void setTno(String tno) {
 		this.tno = tno;
 	}
-
+	
 	@Length(min=0, max=45, message="姓名长度不能超过 45 个字符")
 	public String getTname() {
 		return tname;
@@ -65,7 +62,7 @@ public class Teacher extends DataEntity<Teacher> {
 	public void setTname(String tname) {
 		this.tname = tname;
 	}
-
+	
 	@Length(min=0, max=45, message="性别长度不能超过 45 个字符")
 	public String getTsex() {
 		return tsex;
@@ -74,7 +71,7 @@ public class Teacher extends DataEntity<Teacher> {
 	public void setTsex(String tsex) {
 		this.tsex = tsex;
 	}
-
+	
 	@Length(min=0, max=45, message="籍贯长度不能超过 45 个字符")
 	public String getThome() {
 		return thome;
@@ -83,7 +80,7 @@ public class Teacher extends DataEntity<Teacher> {
 	public void setThome(String thome) {
 		this.thome = thome;
 	}
-
+	
 	@Length(min=0, max=45, message="学院长度不能超过 45 个字符")
 	public String getTcollege() {
 		return tcollege;
@@ -92,7 +89,7 @@ public class Teacher extends DataEntity<Teacher> {
 	public void setTcollege(String tcollege) {
 		this.tcollege = tcollege;
 	}
-
+	
 	@Length(min=0, max=45, message="职称长度不能超过 45 个字符")
 	public String getTitle() {
 		return title;
@@ -101,7 +98,7 @@ public class Teacher extends DataEntity<Teacher> {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
+	
 	@Length(min=0, max=45, message="联系方式长度不能超过 45 个字符")
 	public String getTphone() {
 		return tphone;
@@ -110,7 +107,7 @@ public class Teacher extends DataEntity<Teacher> {
 	public void setTphone(String tphone) {
 		this.tphone = tphone;
 	}
-
+	
 	@Length(min=0, max=45, message="密码长度不能超过 45 个字符")
 	public String getTpassword() {
 		return tpassword;
@@ -119,19 +116,5 @@ public class Teacher extends DataEntity<Teacher> {
 	public void setTpassword(String tpassword) {
 		this.tpassword = tpassword;
 	}
-
-	public List<Course> getCourseList() {
-		return courseList;
-	}
-
-	public void setCourseList(List<Course> courseList) {
-		this.courseList = courseList;
-	}
-
-	public void print(){
-		System.out.println(tno+","+tname+","+tsex+","+thome+","+tcollege+","+title+","+tphone+","+tpassword);
-		for(Course course:courseList){
-			course.print();
-		}
-	}
+	
 }

@@ -25,7 +25,7 @@ import com.jeesite.modules.teacher_manage.service.TeacherService;
 /**
  * 教师信息管理Controller
  * @author wjx
- * @version 2021-01-07
+ * @version 2021-01-08
  */
 @Controller
 @RequestMapping(value = "${adminPath}/teacher_manage/teacher")
@@ -33,7 +33,7 @@ public class TeacherController extends BaseController {
 
 	@Autowired
 	private TeacherService teacherService;
-
+	
 	/**
 	 * 获取数据
 	 */
@@ -41,7 +41,7 @@ public class TeacherController extends BaseController {
 	public Teacher get(String tno, boolean isNewRecord) {
 		return teacherService.get(tno, isNewRecord);
 	}
-
+	
 	/**
 	 * 查询列表
 	 */
@@ -51,7 +51,7 @@ public class TeacherController extends BaseController {
 		model.addAttribute("teacher", teacher);
 		return "modules/teacher_manage/teacherList";
 	}
-
+	
 	/**
 	 * 查询列表数据
 	 */
@@ -81,11 +81,10 @@ public class TeacherController extends BaseController {
 	@PostMapping(value = "save")
 	@ResponseBody
 	public String save(@Validated Teacher teacher) {
-		teacher.print();
 		teacherService.save(teacher);
 		return renderResult(Global.TRUE, text("保存教师信息管理成功！"));
 	}
-
+	
 	/**
 	 * 删除数据
 	 */
@@ -96,5 +95,5 @@ public class TeacherController extends BaseController {
 		teacherService.delete(teacher);
 		return renderResult(Global.TRUE, text("删除教师信息管理成功！"));
 	}
-
+	
 }
