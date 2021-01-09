@@ -1,9 +1,9 @@
-<% layout('/layouts/default.html', {title: '申诉管理管理', libs: ['validate']}){ %>
+<% layout('/layouts/default.html', {title: '成绩申诉', libs: ['validate']}){ %>
 <div class="main-content">
 	<div class="box box-main">
 		<div class="box-header with-border">
 			<div class="box-title">
-				<i class="fa icon-note"></i> ${text(appeal.isNewRecord ? '新增申诉管理' : '编辑申诉管理')}
+				<i class="fa icon-note"></i> ${text(appeal.isNewRecord ? '新增申诉' : '编辑申诉')}
 			</div>
 			<div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -64,7 +64,7 @@
 							<label class="control-label col-sm-2" title="">
 								<span class="required hide">*</span> ${text('反馈内容')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-5">
-								<#form:input path="feedback" class="form-control"/>
+								<#form:input path="feedback" class="form-control" readonly="true"/>
 							</div>
 						</div>
 					</div>

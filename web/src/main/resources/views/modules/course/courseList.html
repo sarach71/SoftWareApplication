@@ -1,14 +1,14 @@
-<% layout('/layouts/default.html', {title: '课程表管理', libs: ['dataGrid']}){ %>
+<% layout('/layouts/default.html', {title: '课程管理', libs: ['dataGrid']}){ %>
 <div class="main-content">
 	<div class="box box-main">
 		<div class="box-header">
 			<div class="box-title">
-				<i class="fa icon-notebook"></i> ${text('课程表管理')}
+				<i class="fa icon-notebook"></i> ${text('课程管理')}
 			</div>
 			<div class="box-tools pull-right">
 				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
 				<% if(hasPermi('course:course:edit')){ %>
-					<a href="${ctx}/course/course/form" class="btn btn-default btnTool" title="${text('新增课程表')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+					<a href="${ctx}/course/course/form" class="btn btn-default btnTool" title="${text('新增课程')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
 				<% } %>
 				<a href="#" class="btn btn-default" id="btnSetting" title="${text('设置')}"><i class="fa fa-navicon"></i></a>
 			</div>
@@ -101,7 +101,7 @@ $('#dataGrid').dataGrid({
 	],
 	// 加载成功后执行事件
 	ajaxSuccess: function(data){
-		
+
 	}
 });
 </script>

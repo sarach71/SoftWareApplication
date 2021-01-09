@@ -5,6 +5,8 @@ package com.jeesite.modules.score.service;
 
 import java.util.List;
 
+import com.jeesite.modules.sys.utils.UserUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,5 +74,10 @@ public class ScoreService extends CrudService<ScoreDao, Score> {
 	public void delete(Score score) {
 		super.delete(score);
 	}
+
+
+
+
+
 
 }

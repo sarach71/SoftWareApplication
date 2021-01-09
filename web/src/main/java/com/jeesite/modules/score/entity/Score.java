@@ -28,7 +28,7 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 	}, orderBy="a.sno DESC, a.cno DESC, a.tno DESC"
 )
 public class Score extends DataEntity<Score> {
-	
+
 	private static final long serialVersionUID = 1L;
 	private String sno;		// 学生学号
 	private String cno;		// 课程号
@@ -39,7 +39,7 @@ public class Score extends DataEntity<Score> {
 	private String checkmethod;		// 考核方式
 	private String result0;		// 是否合格
 	private Double result1;		// 成绩
-	
+
 	public Score() {
 		this(null, null, null);
 	}
@@ -49,7 +49,7 @@ public class Score extends DataEntity<Score> {
 		this.cno = cno;
 		this.tno = tno;
 	}
-	
+
 	public String getSno() {
 		return sno;
 	}
@@ -57,7 +57,7 @@ public class Score extends DataEntity<Score> {
 	public void setSno(String sno) {
 		this.sno = sno;
 	}
-	
+
 	public String getCno() {
 		return cno;
 	}
@@ -65,7 +65,7 @@ public class Score extends DataEntity<Score> {
 	public void setCno(String cno) {
 		this.cno = cno;
 	}
-	
+
 	public String getTno() {
 		return tno;
 	}
@@ -73,7 +73,7 @@ public class Score extends DataEntity<Score> {
 	public void setTno(String tno) {
 		this.tno = tno;
 	}
-	
+
 	@Length(min=0, max=45, message="学生姓名长度不能超过 45 个字符")
 	public String getSname() {
 		return sname;
@@ -82,7 +82,7 @@ public class Score extends DataEntity<Score> {
 	public void setSname(String sname) {
 		this.sname = sname;
 	}
-	
+
 	@Length(min=0, max=45, message="课程名长度不能超过 45 个字符")
 	public String getCname() {
 		return cname;
@@ -91,7 +91,7 @@ public class Score extends DataEntity<Score> {
 	public void setCname(String cname) {
 		this.cname = cname;
 	}
-	
+
 	@Length(min=0, max=45, message="教师姓名长度不能超过 45 个字符")
 	public String getTname() {
 		return tname;
@@ -100,7 +100,7 @@ public class Score extends DataEntity<Score> {
 	public void setTname(String tname) {
 		this.tname = tname;
 	}
-	
+
 	@Length(min=0, max=45, message="考核方式长度不能超过 45 个字符")
 	public String getCheckmethod() {
 		return checkmethod;
@@ -109,7 +109,7 @@ public class Score extends DataEntity<Score> {
 	public void setCheckmethod(String checkmethod) {
 		this.checkmethod = checkmethod;
 	}
-	
+
 	@Length(min=0, max=45, message="是否合格长度不能超过 45 个字符")
 	public String getResult0() {
 		return result0;
@@ -118,7 +118,7 @@ public class Score extends DataEntity<Score> {
 	public void setResult0(String result0) {
 		this.result0 = result0;
 	}
-	
+
 	public Double getResult1() {
 		return result1;
 	}
@@ -126,5 +126,9 @@ public class Score extends DataEntity<Score> {
 	public void setResult1(Double result1) {
 		this.result1 = result1;
 	}
-	
+
+	public void print(){
+		System.out.println(sno+","+cno+","+tno+","+sname+","+cname+","+tname+","+checkmethod+","+result0+","+result1);
+	}
+
 }

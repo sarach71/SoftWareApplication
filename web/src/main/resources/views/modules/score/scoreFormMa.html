@@ -1,9 +1,9 @@
-<% layout('/layouts/default.html', {title: '成绩管理管理', libs: ['validate']}){ %>
+<% layout('/layouts/default.html', {title: '成绩管理', libs: ['validate']}){ %>
 <div class="main-content">
 	<div class="box box-main">
 		<div class="box-header with-border">
 			<div class="box-title">
-				<i class="fa icon-note"></i> ${text(score.isNewRecord ? '新增成绩管理' : '编辑成绩管理')}
+				<i class="fa icon-note"></i> ${text(score.isNewRecord ? '新增成绩' : '编辑成绩')}
 			</div>
 			<div class="box-tools pull-right">
 				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -19,7 +19,7 @@
 								<span class="required ">*</span> ${text('学生学号')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 								<#form:hidden path="isNewRecord"/>
-							<#form:input path="sno" maxlength="10" readonly="${!score.isNewRecord}" class="form-control required abc"/>
+							<#form:input path="sno" maxlength="10" readonly="${!score.isNewRecord}" class="form-control required abc" />
 							</div>
 						</div>
 					</div>

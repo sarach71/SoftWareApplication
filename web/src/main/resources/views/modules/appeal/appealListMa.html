@@ -1,0 +1,90 @@
+<% layout('/layouts/default.html', {title: '申诉管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+    <div class="box box-main">
+        <div class="box-header">
+            <div class="box-title">
+                <i class="fa icon-notebook"></i> ${text('申诉管理')}
+            </div>
+            <div class="box-tools pull-right">
+                <a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
+                <% if(hasPermi('appeal:appeal:edit')){ %>
+                <a href="${ctx}/appeal/appeal/formMa" class="btn btn-default btnTool" title="${text('新增申诉')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+                <% } %>
+                <a href="#" class="btn btn-default" id="btnSetting" title="${text('设置')}"><i class="fa fa-navicon"></i></a>
+            </div>
+        </div>
+        <div class="box-body">
+            <#form:form id="searchForm" model="${appeal}" action="${ctx}/appeal/appeal/listData" method="post" class="form-inline hide"
+            data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+            <div class="form-group">
+                <label class="control-label">${text('序号')}：</label>
+            </div>
+            <div class="form-group">
+                <label class="control-label">${text('学生学号')}：</label>
+                <div class="control-inline">
+                    <#form:input path="sno" maxlength="10" class="form-control width-120"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">${text('课程号')}：</label>
+                <div class="control-inline">
+                    <#form:input path="cno" maxlength="10" class="form-control width-120"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">${text('教师工号')}：</label>
+                <div class="control-inline">
+                    <#form:input path="tno" maxlength="10" class="form-control width-120"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">${text('申诉内容')}：</label>
+                <div class="control-inline">
+                    <#form:input path="atext" class="form-control width-120"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">${text('反馈内容')}：</label>
+                <div class="control-inline">
+                    <#form:input path="feedback" class="form-control width-120"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+                <button type="reset" class="btn btn-default btn-sm">${text('重置')}</button>
+            </div>
+        </#form:form>
+        <table id="dataGrid"></table>
+        <div id="dataGridPage"></div>
+    </div>
+</div>
+</div>
+<% } %>
+<script>
+    // 初始化DataGrid对象
+    $('#dataGrid').dataGrid({
+        searchForm: $("#searchForm"),
+        columnModel: [
+            {header:'${text("序号")}', name:'ano', index:'a.ano', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+                    return '<a href="${ctx}/appeal/appeal/form?ano='+row.ano+'" class="btnList" data-title="${text("编辑申诉管理")}">'+(val||row.id)+'</a>';
+                }},
+            {header:'${text("学生学号")}', name:'sno', index:'a.sno', width:150, align:"left"},
+            {header:'${text("课程号")}', name:'cno', index:'a.cno', width:150, align:"left"},
+            {header:'${text("教师工号")}', name:'tno', index:'a.tno', width:150, align:"left"},
+            {header:'${text("申诉内容")}', name:'atext', index:'a.atext', width:150, align:"left"},
+            {header:'${text("反馈内容")}', name:'feedback', index:'a.feedback', width:150, align:"left"},
+            {header:'${text("操作")}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+                    var actions = [];
+                <% if(hasPermi('appeal:appeal:edit')){ %>
+                        actions.push('<a href="${ctx}/appeal/appeal/formMa?ano='+row.ano+'" class="btnList" title="${text("编辑申诉管理")}"><i class="fa fa-pencil"></i></a>&nbsp;');
+                        actions.push('<a href="${ctx}/appeal/appeal/delete?ano='+row.ano+'" class="btnList" title="${text("删除申诉管理")}" data-confirm="${text("确认要删除该申诉管理吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+                    <% } %>
+                    return actions.join('');
+                }}
+        ],
+        // 加载成功后执行事件
+        ajaxSuccess: function(data){
+
+        }
+    });
+</script>

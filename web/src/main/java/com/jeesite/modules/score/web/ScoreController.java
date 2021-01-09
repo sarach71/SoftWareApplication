@@ -24,6 +24,8 @@ import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.score.entity.Score;
 import com.jeesite.modules.score.service.ScoreService;
 
+import java.util.List;
+
 /**
  * 成绩管理Controller
  * @author qy
@@ -66,11 +68,37 @@ public class ScoreController extends BaseController {
 	@RequiresPermissions("score:score:view")
 	@RequestMapping(value = {"listStu", ""})
 	public String listStu(Score score, Model model) {
-		String id= UserUtils.getUser().getLoginCode();
-		if(score.getSno()==id){
+//		String id=UserUtils.getUser().getId();
+//		score.print();
+//		System.out.println(id+","+score.getSno());
+//		if(score.getSno()==id){
 			model.addAttribute("score", score);
-		}
+//			score.print();
+//		}
+
 		return "modules/score/scoreListStu";
+	}
+
+	/**
+	 * author:wxr
+	 * 查询某教师教授课程的学生成绩列表
+	 */
+	@RequiresPermissions("score:score:view")
+	@RequestMapping(value = {"listTea", ""})
+	public String listTea(Score score, Model model) {
+		model.addAttribute("score", score);
+		return "modules/score/scoreListTea";
+	}
+
+	/**
+	 * author:wxr
+	 * 查询所有学生的成绩列表
+	 */
+	@RequiresPermissions("score:score:view")
+	@RequestMapping(value = {"listMa", ""})
+	public String listMa(Score score, Model model) {
+		model.addAttribute("score", score);
+		return "modules/score/scoreListMa";
 	}
 
 	/**
@@ -86,6 +114,37 @@ public class ScoreController extends BaseController {
 	}
 
 	/**
+	 * author:wxr
+	 * 查询某学生成绩列表数据
+	 */
+	@RequiresPermissions("score:score:view")
+	@RequestMapping(value = "listDataStu")
+	@ResponseBody
+	public Page<Score> listDataStu(Score score, HttpServletRequest request, HttpServletResponse response) {
+		String id=UserUtils.getUser().getLoginCode();
+		score.setSno(id);
+		score.setPage(new Page<>(request, response));
+		Page<Score> page = scoreService.findPage(score);
+		return page;
+	}
+
+	/**
+	 * author:wxr
+	 * 查询某学生成绩列表数据
+	 */
+	@RequiresPermissions("score:score:view")
+	@RequestMapping(value = "listDataTea")
+	@ResponseBody
+	public Page<Score> listDataTea(Score score, HttpServletRequest request, HttpServletResponse response) {
+		String id=UserUtils.getUser().getLoginCode();
+		score.setTno(id);
+		score.setPage(new Page<>(request, response));
+		Page<Score> page = scoreService.findPage(score);
+		return page;
+	}
+
+
+	/**
 	 * 查看编辑表单
 	 */
 	@RequiresPermissions("score:score:view")
@@ -93,6 +152,28 @@ public class ScoreController extends BaseController {
 	public String form(Score score, Model model) {
 		model.addAttribute("score", score);
 		return "modules/score/scoreForm";
+	}
+
+	/**
+	 * author:wxr
+	 * 查看教师编辑表单
+	 */
+	@RequiresPermissions("score:score:view")
+	@RequestMapping(value = "formTea")
+	public String formTea(Score score, Model model) {
+		model.addAttribute("score", score);
+		return "modules/score/scoreFormTea";
+	}
+
+	/**
+	 * author:wxr
+	 * 查看管理员编辑表单
+	 */
+	@RequiresPermissions("score:score:view")
+	@RequestMapping(value = "formMa")
+	public String formMa(Score score, Model model) {
+		model.addAttribute("score", score);
+		return "modules/score/scoreFormMa";
 	}
 
 	/**
